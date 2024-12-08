@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+      background-color: #f4f7fb;
+    }
+    table {
+      width: 90%;
+      max-width: 1000px;
+      margin: 20px 0;
+      border-collapse: collapse;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background-color: white;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    h2 {
+      color: #333;
+    }
+    .total {
+      font-size: 18px;
+      margin: 20px 0;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Your Tracking History</h2>
+  <div class="total">
+    Total: $<span id="total">0</span>
+  </div>
+
+  <table id="historyTable">
+    <thead>
+      <tr>
+        <th onclick="sortTable(0)">Transaction ID</th>
+        <th onclick="sortTable(1)">Time</th>
+        <th onclick="sortTable(2)">Type</th>
+        <th onclick="sortTable(3)">Tracking Number</th>
+        <th onclick="sortTable(4)">User Name</th>
+        <th onclick="sortTable(5)">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- History entries will be dynamically inserted here -->
+    </tbody>
+  </table>
+
+  <button onclick="window.location.href='create_tracking.html'">Back to Create Tracking</button>
+
+  <script>
+    if (!localStorage.getItem('currentUser')) {
+      alert("You need to log in first.");
+      window.location.href = 'login.html';
+    }
+
+    const currentUser = localStorage.getItem('currentUser');
+    const userHistory = JSON.parse(localStorage.getItem(currentUser + '-history')) || [];
+    const total = parseFloat(localStorage.getItem(currentUser + '-total')) || 0;
+
+    const historyTable = document.getElementById("historyTable").getElementsByTagName('tbody')[0];
+
+    // Function to add history entries to the table
+    function displayHistory() {
+      if (userHistory.length === 0) {
+        const noDataRow = historyTable.insertRow();
+        noDataRow.innerHTML = "<td colspan='6'>No history available.</td>";
+      } else {
+        userHistory.forEach(entry => {
+          const row = historyTable.insertRow();
+
+          row.innerHTML = `
+            <td>${entry.transactionId}</td>
+            <td>${entry.timestamp}</td>
+            <td class="${entry.status}">${entry.status}</td>
+            <td>${entry.trackingCode}</td>
+            <td>${entry.user}</td>
+            <td>$${entry.value}</td>
+          `;
+        });
+      }
+      document.getElementById("total").textContent = total.toFixed(2);
+    }
+
+    displayHistory();
+
+    // Sort table by column
+    function sortTable(columnIndex) {
+      const rows = Array.from(historyTable.rows);
+      const isAscending = historyTable.querySelectorAll("th")[columnIndex].classList.contains("asc");
+
+      rows.sort((a, b) => {
+        const cellA = a.cells[columnIndex].textContent.trim();
+        const cellB = b.cells[columnIndex].textContent.trim();
+
+        if (!isNaN(cellA) && !isNaN(cellB)) {
+          return isAscending ? cellA - cellB : cellB - cellA;
+        }
+        return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+      });
+
+      rows.forEach(row => historyTable.appendChild(row));
+
+      historyTable.querySelectorAll("th").forEach(th => th.classList.remove("asc", "desc"));
+      historyTable.querySelectorAll("th")[columnIndex].classList.add(isAscending ? "desc" : "asc");
+    }
+  </script>
+
+</body>
+</html>

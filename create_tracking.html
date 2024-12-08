@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create & Accept Tracking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 14px;
+      margin: 5px;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .input-container {
+      margin-bottom: 20px;
+    }
+    .input-container input {
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Create & Accept Tracking</h2>
+
+  <!-- Input box for creating tracking -->
+  <div class="input-container">
+    <input type="number" id="createInput" placeholder="Enter value..." required>
+    <button onclick="submitInput()">Create Tracking</button>
+  </div>
+
+  <!-- Input box for accepting tracking -->
+  <div class="input-container">
+    <input type="text" id="acceptInput" placeholder="Enter tracking code to accept..." required>
+    <button onclick="acceptTracking()">Accept Tracking</button>
+  </div>
+
+  <div>
+    <button onclick="window.location.href='history.html'">View History</button>
+  </div>
+
+  <script>
+    if (!localStorage.getItem('currentUser')) {
+      alert("You need to log in first.");
+      window.location.href = 'login.html';
+    }
+
+    const currentUser = localStorage.getItem('currentUser');
+
+    // Get the last used transaction ID (or start at 1 if none exists)
+    function getNextTransactionId() {
+      const lastTransactionId = localStorage.getItem('lastTransactionId');
+      const newTransactionId = lastTransactionId ? parseInt(lastTransactionId) + 1 : 1;
+      localStorage.setItem('lastTransactionId', newTransactionId); // Save the new transaction ID
+      return newTransactionId;
+    }
+
+    function generateTrackingCode() {
+      // Generate a unique tracking code based on timestamp (TRACK-1627578904567)
+      return 'TRACK-' + new Date().getTime();
+    }
+
+    function submitInput() {
+      const inputValue = document.getElementById("createInput").value.trim();
+      if (inputValue !== "") {
+        const transactionId = getNextTransactionId();  // Numeric Transaction ID
+        const trackingCode = generateTrackingCode();  // Tracking number (timestamp-based)
+        const timestamp = new Date().toLocaleString();
+
+        let userHistory = JSON.parse(localStorage.getItem(currentUser + '-history')) || [];
+
+        const entry = {
+          transactionId: transactionId,
+          trackingCode: trackingCode,
+          value: parseFloat(inputValue),
+          timestamp: timestamp,
+          status: 'created', // Mark the status as 'created' (grey)
+          user: currentUser // Add the user's name (or username)
+        };
+        userHistory.push(entry);
+
+        localStorage.setItem(currentUser + '-history', JSON.stringify(userHistory));
+
+        // Don't add the created tracking value to the user's total
+        document.getElementById("createInput").value = "";
+        alert(`Tracking created with Transaction ID: ${transactionId} and Tracking Code: ${trackingCode}`);
+      } else {
+        alert("Please enter a value.");
+      }
+    }
+
+    // Accept the tracking entry based on tracking code
+    function acceptTracking() {
+      const trackingCode = document.getElementById("acceptInput").value.trim();
+      if (trackingCode !== "") {
+        let userHistory = JSON.parse(localStorage.getItem(currentUser + '-history')) || [];
+        let foundTracking = false;
+
+        userHistory.forEach(entry => {
+          if (entry.trackingCode === trackingCode) {
+            if (entry.status === 'created') {
+              // Mark as accepted
+              entry.status = 'received'; // Change status to 'received' (green)
+              localStorage.setItem(currentUser + '-history', JSON.stringify(userHistory));
+
+              alert(`Tracking with code ${trackingCode} has been accepted.`);
+              foundTracking = true;
+            } else {
+              alert(`Tracking with code ${trackingCode} has already been accepted or processed.`);
+              foundTracking = true;
+            }
+          }
+        });
+
+        if (!foundTracking) {
+          alert("Tracking code not found.");
+        }
+
+        // Clear the accept input field
+        document.getElementById("acceptInput").value = "";
+      } else {
+        alert("Please enter a valid tracking code.");
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Order Details</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: 600;
+        }
+
+        .card {
+            background-color: #fff;
+            width: 450px;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: 270px;
+        }
+
+        .client-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            text-transform: capitalize;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .order-details {
+            text-align: left;
+            margin-bottom: 8px;
+        }
+
+        .order-details p {
+            margin: 0px 0;
+            color: #555;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            padding: 6px;
+            border-radius: 5px;
+        }
+
+        .order-details p:hover {
+            background-color: #f2f2f2;
+        }
+
+        .order-details p span {
+            font-weight: 600;
+            color: #333;
+            width: 50%;
+        }
+
+        .order-details p .value {
+            font-weight: 700;
+            color: #333;
+            width: 50%;
+            text-align: right;
+        }
+
+        .order-details p + p {
+            border-top: 1px solid #ddd;
+            padding-top: 4px;
+        }
+
+        .total-cost {
+            font-size: 18px;
+            font-weight: 700;
+            color: #4CAF50;
+            border-top: 1px solid #ddd;
+            padding-top: 0px;
+            text-align: right;
+        }
+        
+        .total-cost p{
+            margin-top: 40px;
+        }
+
+        .button {
+            padding: 5px 16px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            font-weight: 600;
+            margin-left: 320px;
+            text-align: center;
+            width: 130px;
+            height: 35px;
+            box-sizing: border-box;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                width: 90%;
+            }
+        }
+
+    </style>
+    <!-- Include jsPDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<h1>Client Order Details</h1>
+
+<div class="card">
+    <div class="client-name">
+        ALILOU LIVREUR
+    </div>
+
+    <div class="order-details">
+        <p><span>Total des Colis:</span> <span class="value">19</span></p>
+        <p><span>Frais de Livraison:</span> <span class="value">285 DA</span></p>
+        <p><span>Nombre des Colis:</span> <span class="value">155 650,00 DA</span></p>
+    </div>
+
+    <div class="total-cost">
+        <p><strong>Montant à Remettre:</strong> 150 235,00 DA</p>
+    </div>
+    <a href="#" class="button" id="generate-ticket">Validée</a>
+</div>
+
+<script>
+    document.getElementById('generate-ticket').addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent default link behavior
+
+        try {
+            // Getting current date and time
+            const currentDate = new Date();
+            const date = currentDate.toLocaleDateString();
+            const time = currentDate.toLocaleTimeString();
+
+            // Client order details
+            const clientName = "ALILOU LIVREUR";
+            const totalColis = 19; // Total des colis
+            const fraisLivraison = "285 DA"; // Frais de Livraison
+            const nombreColis = "155 650,00 DA"; // Nombre des colis
+
+            // Create a new jsPDF instance with custom paper size for a small ticket (80mm x 100mm)
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', [80, 100]);
+
+            // Set font and style
+            doc.setFont("helvetica");
+            doc.setFontSize(10);
+
+            // Title
+            doc.setFontSize(14);
+            doc.setFont("helvetica", "bold");
+            doc.text("RECU D'ENCAISSEMENT", 10, 10);
+
+            // Draw a thin border around ZREXPRESS, HUB BIRKHADEM, and Date/Time
+            doc.setLineWidth(0.2);
+            doc.rect(5, 12, 70, 20); // x, y, width, height
+
+            // Additional info inside the box
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "normal");
+            doc.text("ZREXPRESS", 10, 16);
+            doc.text("HUB BIRKHADEM", 40, 16);
+
+            // Date and Time
+            doc.setFontSize(8);
+            doc.text(`Date: ${date}`, 10, 20);
+            doc.text(`Time: ${time}`, 50, 20);
+
+            // LIVREUR (Client details)
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("LIVREUR:", 10, 30);
+
+            // Client name next to LIVREUR
+            doc.setFontSize(12);
+            doc.text(clientName, 32, 30);
+
+            // Add a thin line above the "DETAILS D'ENCAISSEMENT" section
+            doc.setLineWidth(0.1);
+            doc.line(5, 41, 75, 41); // Line above the "DETAILS D'ENCAISSEMENT"
+
+            // DETAILS D'ENCAISSEMENT
+            doc.setFontSize(12);
+            doc.setFont("helvetica", "bold");
+            doc.text("DETAILS D'ENCAISSEMENT:", 10, 46);
+
+            // Order details with values aligned to the right
+            doc.setFontSize(10);
+            doc.text("Total des Colis:", 10, 55);
+            doc.text(totalColis.toString(), 52, 55);  // Align value to the right
+
+            doc.text("Frais de Livraison:", 10, 60);
+            doc.text(fraisLivraison, 52, 60);  // Align value to the right
+
+            doc.text("Nombre des Colis:", 10, 65);
+            doc.text(nombreColis, 52, 65);  // Align value to the right
+
+            // Add a thin line after the order details
+            doc.setLineWidth(0.1);
+            doc.line(5, 70, 75, 70); // Line below the order details section
+
+            // Montant à Remettre at the bottom-right (Updated label)
+            doc.setFontSize(10);
+            doc.setFont("helvetica", "bold");
+            doc.text("Montant à Remettre:", 10, 75);
+            doc.text("150 235,00 DA", 52, 75);
+
+            // Generate PDF as a Blob and open in a new window
+            const pdfBlob = doc.output('blob');
+
+            // Create a URL for the Blob
+            const pdfUrl = URL.createObjectURL(pdfBlob);
+
+            // Open the PDF in a new window
+            window.open(pdfUrl, '_blank');
+
+            // Redirect to Liste Livreurs page after a short delay (to ensure PDF is opened first)
+            setTimeout(function() {
+                window.location.href = 'listelivreurencaissement.html'; // Change this to your page's URL
+            }, 500); // Delay for 500ms to allow PDF to load
+        } catch (error) {
+            console.error('Error generating the PDF:', error);
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense History - Tresorier</title>
+    <style>
+        /* Your existing CSS */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .history-table {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Expense History - Tresorier</h1>
+
+        <div class="history-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Expense Name</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="history-list"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const historyList = document.getElementById("history-list");
+
+        // Function to render history from localStorage
+        function renderHistory() {
+            const history = JSON.parse(localStorage.getItem("history")) || [];
+            historyList.innerHTML = "";
+
+            history.forEach(expenseSet => {
+                expenseSet.forEach(expense => {
+                    const expenseRow = document.createElement("tr");
+                    expenseRow.innerHTML = `
+                        <td>${expense.name}</td>
+                        <td>$${expense.amount}</td>
+                    `;
+                    historyList.appendChild(expenseRow);
+                });
+            });
+        }
+
+        renderHistory(); // Render history on page load
+    </script>
+</body>
+
+</html>

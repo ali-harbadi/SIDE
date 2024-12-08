@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Liste des Paiements</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f7fb;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 24px;
+      margin-top: 40px;
+      color: #444;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+      font-weight: bold;
+    }
+
+    td {
+      background-color: #f9f9f9;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f1f1f1;
+    }
+
+    td button {
+      padding: 6px 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+
+    td button:hover {
+      background-color: #45a049;
+    }
+
+    .shop-name {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .montant {
+      color: #27ae60;
+      font-weight: bold;
+    }
+
+    .date-time {
+      color: #777;
+    }
+
+    /* Hover Effect on Rows */
+    tr:hover {
+      background-color: #f1f1f1;
+      cursor: pointer;
+    }
+
+    /* Modal Background */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Modal Content */
+    .modal-content {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 600px;
+      width: 90%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Modal Header */
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .modal-header .shop-name,
+    .modal-header .date-time,
+    .modal-header .montant {
+      margin-right: 20px;
+    }
+
+    .modal-header .shop-name {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .modal-header .date-time {
+      color: #777;
+    }
+
+    .modal-header .montant {
+      color: #27ae60;
+      font-weight: bold;
+    }
+
+    .modal-body p {
+      font-size: 14px;
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-body p .user-name {
+      color: #333;
+      font-weight: 500;
+      text-align: right;
+    }
+
+    /* New green background section */
+    .datestamp-section {
+      background-color: #27ae60;
+      color: white;
+      font-weight: bold;
+      padding: 10px;
+      text-align: left;
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 10px;
+      border-radius: 5px;
+    }
+
+    .datestamp-section span {
+      font-size: 16px;
+    }
+
+    .datestamp-section .hub-birkhadem {
+      margin-left: 20px;
+      font-size: 16px;
+    }
+
+    .datestamp-section .user-name {
+      font-size: 14px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    /* ID de Paiement Section */
+    .payment-id {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    /* Thin line under Payment ID */
+    .payment-id-line {
+      border-top: 1px solid #ddd;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Liste des Paiements</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID de Paiement</th>
+          <th>ID Utilisateur</th>
+          <th>Date et Heure</th>
+          <th>Nom de la Boutique</th>
+          <th>Montant (DA)</th>
+          <th>Imprimer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Row 1 -->
+        <tr onclick="openModal('001', 'HUB SOUAKRIA', 'HUB BIRKHADEM', 'HUB BIRKHADEM', '2024-12-01 10:30', 'Magasin Alpha', '25,000 DA', 'User 1', 'User 2', 'User 3', '2024-12-01 10:30', 'User 3')">
+          <td>001</td>
+          <td>U1001</td>
+          <td class="date-time">2024-12-01 10:30</td>
+          <td class="shop-name">Magasin Alpha</td>
+          <td class="montant">25,000 DA</td>
+          <td><button onclick="handlePrint(event)">Imprimer</button></td>
+        </tr>
+        <!-- Row 2 -->
+        <tr onclick="openModal('002', 'HUB SOUAKRIA', 'HUB BIRKHADEM', 'HUB BIRKHADEM', '2024-12-01 11:00', 'Magasin Beta', '12,050 DA', 'User 1', 'User 2', 'User 3', '2024-12-01 11:00', 'User 3')">
+          <td>002</td>
+          <td>U1002</td>
+          <td class="date-time">2024-12-01 11:00</td>
+          <td class="shop-name">Magasin Beta</td>
+          <td class="montant">12,050 DA</td>
+          <td><button onclick="handlePrint(event)">Imprimer</button></td>
+        </tr>
+        <!-- Add More Rows as Needed -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal-overlay" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()"> <!-- Prevent closing when clicking inside the modal -->
+      <!-- Modal Content (Payment ID) -->
+      <div class="payment-id" id="payment-id"></div>
+      
+      <!-- Thin line under Payment ID -->
+      <div class="payment-id-line"></div>
+
+      <!-- Modal Header (Shop Name, Date, and Montant) -->
+      <div class="modal-header">
+        <div class="shop-name" id="shop-name-header"></div>
+        <div class="date-time" id="date-header"></div>
+        <div class="montant" id="montant-header"></div>
+      </div>
+
+      <!-- Modal Body (Payment Details) -->
+      <div class="modal-body">
+        <p><strong>Validée par:</strong> <span id="validated-by"></span><span class="user-name" id="validated-by-user"></span></p>
+        <p><strong>Affectée vers:</strong> <span id="assigned-to"></span><span class="user-name" id="assigned-to-user"></span></p>
+        <p><strong>Confirmée à:</strong> <span id="confirmed-at"></span><span class="user-name" id="confirmed-at-user"></span></p>
+      </div>
+
+      <!-- Datestamp Section with HUB BIRKHADEM, Date, and User 1 -->
+      <div class="datestamp-section">
+        <span><strong>Récupérer le:</strong> <span id="datestamp"></span></span>
+        <span class="hub-birkhadem"><strong>HUB BIRKHADEM</strong></span>
+        <span class="user-name" id="user-3"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal(id, validatedByLocation, assignedToLocation, confirmedAtLocation, dateTime, shopName, amount, validatedByUser, assignedToUser, confirmedAtUser, datestamp, user3) {
+      // Populate modal with clicked row details
+      document.getElementById('payment-id').innerText = 'ID de Paiement: ' + id;
+      document.getElementById('shop-name-header').innerText = shopName;
+      document.getElementById('montant-header').innerText = amount;
+      document.getElementById('date-header').innerText = dateTime;
+
+      // Populate Payment Details
+      document.getElementById('validated-by').innerText = validatedByLocation;
+      document.getElementById('assigned-to').innerText = assignedToLocation;
+      document.getElementById('confirmed-at').innerText = confirmedAtLocation;
+
+      // Assign user names to the right
+      document.getElementById('validated-by-user').innerText = validatedByUser;
+      document.getElementById('assigned-to-user').innerText = assignedToUser;
+      document.getElementById('confirmed-at-user').innerText = confirmedAtUser;
+
+      // Add datestamp and user 3 info at the bottom
+      document.getElementById('datestamp').innerText = datestamp;
+      document.getElementById('user-3').innerText = user3;
+
+      // Show the modal
+      document.getElementById('modal').style.display = 'flex';
+    }
+
+    function closeModal(event) {
+      // Close modal only when clicking outside the modal content
+      if (event.target === document.getElementById('modal')) {
+        document.getElementById('modal').style.display = 'none';
+      }
+    }
+
+    function handlePrint(event) {
+      event.stopPropagation(); // Prevent the click event from propagating to the modal overlay
+      window.print();
+    }
+  </script>
+
+</body>
+</html>

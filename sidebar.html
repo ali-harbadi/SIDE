@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Livreurs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 60%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+        td {
+            background-color: #ecf0f1;
+        }
+        .btn {
+            background-color: #3498db;
+            color: white;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            text-decoration: none; /* Removes underline from the link */
+            display: inline-block; /* Makes the link look like a button */
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 60%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Liste des Livreurs</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Livreur Ahmed</td>
+            <td><button class="btn" onclick="openModal('Ahmed', 19, 285, 155650, 150235)">Ouvrir</button></td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Livreur Samir</td>
+            <td><button class="btn" onclick="openModal('Samir', 12, 200, 145000, 135000)">Ouvrir</button></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Livreur Nadia</td>
+            <td><button class="btn" onclick="openModal('Nadia', 25, 310, 200000, 190000)">Ouvrir</button></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>Livreur Khaled</td>
+            <td><button class="btn" onclick="openModal('Khaled', 15, 250, 125000, 115000)">Ouvrir</button></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>Livreur Leila</td>
+            <td><button class="btn" onclick="openModal('Leila', 22, 275, 160000, 150000)">Ouvrir</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Details Livreur</h2>
+        <p><strong>Livreur Name:</strong> <span id="livreurName"></span></p>
+        <p><strong>Total des Colis:</strong> <span id="totalColis"></span></p>
+        <p><strong>Frais de Livraison:</strong> <span id="fraisLivraison"></span> DA</p>
+        <p><strong>Nombre des Colis:</strong> <span id="nombreColis"></span> DA</p>
+        <p><strong>Montant à Remettre:</strong> <span id="montantRemettre"></span> DA</p>
+        <button class="btn" onclick="generatePDF()">Generate PDF</button>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+    // Open the Modal and populate it with the livreur details
+    function openModal(name, totalColis, fraisLivraison, nombreColis, montantRemettre) {
+        document.getElementById("livreurName").innerText = name;
+        document.getElementById("totalColis").innerText = totalColis;
+        document.getElementById("fraisLivraison").innerText = fraisLivraison;
+        document.getElementById("nombreColis").innerText = nombreColis;
+        document.getElementById("montantRemettre").innerText = montantRemettre;
+
+        document.getElementById("myModal").style.display = "block";
+    }
+
+    // Close the Modal
+    function closeModal() {
+        document.getElementById("myModal").style.display = "none";
+    }
+
+    // Function to generate PDF
+    function generatePDF() {
+        const { jsPDF } = window.jspdf;
+
+        // Create a new PDF instance
+        const doc = new jsPDF();
+
+        // Add content to the PDF
+        doc.text("Details Livreur", 20, 20);
+        doc.text("Livreur Name: " + document.getElementById("livreurName").innerText, 20, 30);
+        doc.text("Total des Colis: " + document.getElementById("totalColis").innerText, 20, 40);
+        doc.text("Frais de Livraison: " + document.getElementById("fraisLivraison").innerText + " DA", 20, 50);
+        doc.text("Nombre des Colis: " + document.getElementById("nombreColis").innerText + " DA", 20, 60);
+        doc.text("Montant à Remettre: " + document.getElementById("montantRemettre").innerText + " DA", 20, 70);
+
+        // Save the PDF
+        doc.save('livreur-details.pdf');
+    }
+
+    // Close the modal when clicking outside of the modal
+    window.onclick = function(event) {
+        if (event.target == document.getElementById("myModal")) {
+            closeModal();
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking Number Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .menu-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: black;
+            color: white;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .menu-btn:hover {
+            background-color: #333;
+        }
+
+        h1 {
+            color: #4a90e2;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 300px;
+            margin-right: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 16px;
+            font-size: 1rem;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #357ab7;
+        }
+
+        .confirmation {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            background-color: #4CAF50;
+            padding: 10px;
+            width: 430px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 80%;
+            margin-top: 30px;
+            border-collapse: collapse;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        th {
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .affecte {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .pdf-btn {
+            padding: 10px 16px;
+            font-size: 1rem;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .pdf-btn:hover {
+            background-color: #d12b2b;
+        }
+
+        @media (max-width: 768px) {
+            input {
+                width: 250px;
+            }
+
+            button {
+                padding: 8px 14px;
+            }
+
+            table {
+                width: 90%;
+            }
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+    <a href="index.html" class="menu-btn">MENU</a>
+
+    <h1>Enter Tracking Number</h1>
+
+    <div>
+        <input type="text" id="trackingNumber" placeholder="Enter tracking number">
+        <button onclick="addTrackingNumber()">Add to List</button>
+        <button class="pdf-btn" onclick="openPDFInNewTab()">Open PDF in Blank Page</button>
+    </div>
+
+    <div id="confirmationContainer"></div>
+
+    <table id="trackingTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Tracking Number</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        let trackingNumbers = [];
+
+        function addTrackingNumber() {
+            const input = document.getElementById('trackingNumber');
+            const trackingNumber = input.value.trim();
+
+            if (trackingNumber) {
+                if (trackingNumbers.includes(trackingNumber)) {
+                    alert("This tracking number has already been added.");
+                    input.value = '';
+                    return;
+                }
+
+                const confirmationContainer = document.getElementById('confirmationContainer');
+                confirmationContainer.innerHTML = '';
+
+                displayConfirmedNumber(trackingNumber);
+
+                trackingNumbers.push(trackingNumber);
+
+                updateTable();
+
+                input.value = '';
+            } else {
+                alert("Please enter a valid tracking number.");
+            }
+        }
+
+        function displayConfirmedNumber(number) {
+            const confirmationContainer = document.getElementById('confirmationContainer');
+
+            const confirmationDiv = document.createElement('div');
+            confirmationDiv.classList.add('confirmation');
+            confirmationDiv.textContent = number;
+
+            confirmationContainer.appendChild(confirmationDiv);
+        }
+
+        function updateTable() {
+            const tableBody = document.querySelector('#trackingTable tbody');
+            tableBody.innerHTML = '';
+
+            const reversedTrackingNumbers = [...trackingNumbers].reverse();
+
+            reversedTrackingNumbers.forEach((number, index) => {
+                const row = document.createElement('tr');
+                const cell1 = document.createElement('td');
+                const cell2 = document.createElement('td');
+                const cell3 = document.createElement('td');
+
+                cell1.innerHTML = `${trackingNumbers.length - index}`;
+                cell2.innerHTML = number;
+                cell3.innerHTML = `<span class="affecte">Affecté</span>`;
+
+                row.appendChild(cell1);
+                row.appendChild(cell2);
+                row.appendChild(cell3);
+                tableBody.appendChild(row);
+            });
+        }
+
+  
+        function openPDFInNewTab() {
+    const { jsPDF } = window.jspdf;
+    // Create a new PDF with no margins
+    const doc = new jsPDF({
+        margin: 0,  // No margins
+        unit: 'mm', // Use millimeters for measurement
+        format: 'a4' // Standard A4 page size
+    });
+
+    const currentDate = new Date().toLocaleDateString();
+
+    // Create new blank window for PDF
+    const pdfWindow = window.open('', '_blank');
+    pdfWindow.document.write('<html><head><title>Tracking Numbers Report</title></head><body>');
+
+    // Add content to the PDF
+    doc.setFontSize(18);
+    doc.text('Tracking Numbers Report', 20, 20);
+    doc.setFontSize(12);
+    doc.text('Date: ' + currentDate, 20, 30);
+
+    let y = 40;
+    trackingNumbers.forEach((number, index) => {
+        doc.text(`${index + 1}. ${number} - Affecté`, 20, y);
+        y += 10;
+    });
+
+    // Generate the PDF as a base64-encoded string
+    const pdfData = doc.output('datauristring');
+
+    // Embed the PDF in the blank window using an iframe
+    pdfWindow.document.write('<iframe src="' + pdfData + '" width="100%" height="100%" style="border:none;"></iframe>');
+    pdfWindow.document.write('</body></html>');
+
+    pdfWindow.document.close(); // Close the document to render the PDF
+}
+
+    </script>
+
+</body>
+</html>

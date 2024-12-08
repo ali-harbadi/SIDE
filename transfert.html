@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking Transfer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f6f9;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .form-group input {
+            padding: 10px;
+            width: 45%;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-group button {
+            padding: 10px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .form-group button:hover {
+            background-color: #357ab7;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        th {
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        .tracking-row {
+            background-color: #f9f9f9;
+        }
+
+        .tracking-step {
+            padding: 10px;
+            margin-bottom: 5px;
+        }
+
+        .created {
+            background-color: #dcdcdc; /* Light grey for created */
+        }
+
+        .accepted {
+            background-color: #d4edda; /* Light green for accepted */
+        }
+
+        .rejected {
+            background-color: #f8d7da; /* Light red for rejected */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Tracking Transfer</h1>
+        
+        <!-- Input Form for Transfer -->
+        <div class="form-group">
+            <div>
+                <input type="text" id="trackingValue" placeholder="Enter Value (Number)">
+            </div>
+            <div>
+                <button onclick="generateTracking()">Generate Tracking</button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <input type="text" id="trackingToAccept" placeholder="Enter Tracking to Accept">
+            </div>
+            <div>
+                <button onclick="acceptTracking()">Accept Tracking</button>
+            </div>
+        </div>
+
+        <!-- Table to display generated tracking -->
+        <table id="trackingTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tracking Number</th>
+                    <th>Creator</th>
+                    <th>Value</th>
+                    <th>Steps</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be added dynamically -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let trackingList = [];  // Array to hold generated tracking numbers
+        let user = 'User1';  // Example user (you can replace this with a dynamic user)
+
+        // Function to generate tracking number and add to table
+        function generateTracking() {
+            const trackingValue = document.getElementById('trackingValue').value.trim();
+
+            if (trackingValue === "") {
+                alert("Please enter a value.");
+                return;
+            }
+
+            // Create a new tracking number (for simplicity, just appending a timestamp)
+            const trackingNumber = 'TRACK' + Date.now();
+
+            // Add the new tracking to the list with an initial grey status
+            trackingList.push({
+                id: trackingList.length + 1,
+                trackingNumber: trackingNumber,
+                creator: user,
+                value: trackingValue,  // Save the value inputted
+                status: ['Created'],  // Starts with "Created"
+                accepted: false
+            });
+
+            // Update the table with the new tracking info
+            updateTrackingTable();
+
+            // Clear the input field for value
+            document.getElementById('trackingValue').value = '';
+        }
+
+        // Function to accept tracking and update the table
+        function acceptTracking() {
+            const trackingToAccept = document.getElementById('trackingToAccept').value.trim();
+
+            if (trackingToAccept === "") {
+                alert("Please enter a tracking number to accept.");
+                return;
+            }
+
+            // Find the tracking number in the list
+            const tracking = trackingList.find(item => item.trackingNumber === trackingToAccept);
+
+            if (!tracking) {
+                alert("Tracking number not found.");
+                return;
+            }
+
+            // If the user is the creator, mark the tracking as "rejected" first
+            if (tracking.creator === user) {
+                // If it's the creator's own tracking, mark it as rejected first (red)
+                tracking.status.push('Rejected');
+                tracking.accepted = false;
+
+                // After rejection, it automatically changes to accepted (green)
+                setTimeout(() => {
+                    tracking.status.push('Accepted');
+                    tracking.accepted = true;
+                    updateTrackingTable();  // Update table to show the final accepted state
+                }, 1000); // Delay before changing to accepted (green) state
+            } else {
+                // Otherwise, mark it as accepted
+                tracking.status.push('Accepted');
+                tracking.accepted = true;
+            }
+
+            // Update the table with the changed status
+            updateTrackingTable();
+
+            // Clear the input field for tracking to accept
+            document.getElementById('trackingToAccept').value = '';
+        }
+
+        // Function to update the tracking table
+        function updateTrackingTable() {
+            const tableBody = document.querySelector('#trackingTable tbody');
+            tableBody.innerHTML = '';  // Clear existing rows
+
+            trackingList.forEach(tracking => {
+                const row = document.createElement('tr');
+                row.classList.add('tracking-row');
+
+                // Add table data for tracking ID and number
+                const steps = tracking.status.map(step => {
+                    return `<div class="tracking-step ${step.toLowerCase()}">${step}</div>`;
+                }).join('');
+
+                row.innerHTML = `
+                    <td>${tracking.id}</td>
+                    <td>${tracking.trackingNumber}</td>
+                    <td>${tracking.creator}</td>
+                    <td>${tracking.value}</td>  <!-- Display the value associated with the tracking -->
+                    <td>${steps}</td>
+                `;
+
+                // Append row to table
+                tableBody.appendChild(row);
+            });
+        }
+    </script>
+
+</body>
+</html>
