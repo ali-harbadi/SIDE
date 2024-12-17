@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Boutiques</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fb;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 40px;
+            color: #444;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f1f1f1;
+        }
+
+        td a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        td a:hover {
+            color: #4CAF50;
+        }
+
+        tr:hover {
+            background-color: #e0f7e0;
+            cursor: pointer;
+        }
+
+        .schedule input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            color: #4CAF50;
+        }
+
+        .filter-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filter-container select {
+            padding: 8px;
+            font-size: 14px;
+            width: 200px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .filter-container button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .filter-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Liste des Boutiques</h1>
+
+        <div class="filter-container">
+            <label for="day-filter">Filtrer par Jour:</label>
+            <select id="day-filter">
+                <option value="">--Sélectionner un jour--</option>
+                <option value="Samedi">Samedi</option>
+                <option value="Dimanche">Dimanche</option>
+                <option value="Lundi">Lundi</option>
+                <option value="Mardi">Mardi</option>
+                <option value="Mercredi">Mercredi</option>
+                <option value="Jeudi">Jeudi</option>
+                <option value="Vendredi">Vendredi</option>
+            </select>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID de Paiement</th>
+                    <th>Nom de la Boutique</th>
+                    <th>S</th> <!-- Samedi -->
+                    <th>D</th> <!-- Dimanche -->
+                    <th>L</th> <!-- Lundi -->
+                    <th>M</th> <!-- Mardi -->
+                    <th>Me</th> <!-- Mercredi -->
+                    <th>J</th> <!-- Jeudi -->
+                    <th>V</th> <!-- Vendredi -->
+                    <th>Modifier</th> <!-- Modifier button -->
+                </tr>
+            </thead>
+            <tbody>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	ZIMOU TEAM 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	SHOPPINGDZ213 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	E-COM DELIVERY 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	ASTYAN_ACCESSOIRES 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	QUEEN COLLECTION16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	DORKA 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	ABEXPRESS 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	ULTIMATE WL 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	ISTANBUL MODE 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	FAMOUS SHOES 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	LECTIO 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	ZAKO SHOP 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	ALISHOP DZ 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	RYVET 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	ACTEBIS16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	TIK WATCH DZ 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	MOHAMED DR 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	@ULTIMATE HB 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	WE BELLES 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	CREATION GLAMOUR 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	EMMY GLOWEN 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	ADIM MOTO16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	ROYAL KIDS 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	THAOUB EL FIRDEOUS16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	THAWB EL MALAKI 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	ANZ-BIJOUX 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	TRUE WOMAN16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	PYJAMAS.LYLI 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	CASUAL_FACTORY_16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	HITECH 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	LATEULIER KN 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	ZSHOP16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	SB.SPORT.DZ 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	PARFUMERIER L&M 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	SHEZAD BRAND 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	LES FEMMES D'ABORD 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	BRH QUINCAILLERIE GENERALE 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	MERABTI16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	SALY RENE 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	CHICHI 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	FIFOBALL.DZ 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	SOFIANE FASHION SHOP16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	AURA-SJEWLERY 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	BOUTIQUE.MLY16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	TECKIO16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	MILI SHOES 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	PRODUIT KABA DZ 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	WASSILA SHOPPING16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	BUGAYA 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	Y&Y SHOP 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              <tr><td>000001</td><td><a href="details.html?id=000001&name=ZIMOU%20TEAM&montant=25,000%20DA">	LORCHIDEE SHOP 16 	</a></td><td><input type="checkbox" class="schedule-checkbox" data-day="Samedi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Dimanche"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Lundi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mardi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Mercredi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Jeudi"></td><td><input type="checkbox" class="schedule-checkbox" data-day="Vendredi"></td><td><button class="modifier-btn">Modifier</button></td></tr>
+              
+              
+                <!-- Continue adding the rest of your boutiques here in similar fashion -->
+
+                
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+       // Ensure all checkboxes are initially disabled and greyed out on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+    
+    // Disable all checkboxes on page load
+    allCheckboxes.forEach(checkbox => {
+        checkbox.disabled = true;
+        checkbox.classList.add('disabled-checkbox');
+    });
+});
+
+// Function to apply the day filter
+document.getElementById('day-filter').addEventListener('change', function() {
+    const selectedDay = this.value; // Get the selected day
+    const rows = document.querySelectorAll('tbody tr'); // Select all table rows
+
+    rows.forEach(row => {
+        let isMatch = false; // Flag to check if any checkbox for selected day is checked
+
+        // Check if any checkbox for the selected day is checked
+        const checkboxes = row.querySelectorAll(`input[data-day="${selectedDay}"]`);
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                isMatch = true; // If checkbox is checked, mark the row as a match
+            }
+        });
+
+        // Show or hide the row based on the match
+        if (selectedDay === "" || isMatch) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    });
+});
+
+// Function to toggle checkboxes on Modifier/Enregistrer button click
+document.querySelectorAll('.modifier-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const row = this.closest('tr');
+        const checkboxes = row.querySelectorAll('input[type="checkbox"]');
+        const isDisabled = checkboxes[0].disabled;
+
+        if (isDisabled) {
+            // Enable checkboxes for modification
+            checkboxes.forEach(checkbox => {
+                checkbox.disabled = false;
+                checkbox.classList.remove('disabled-checkbox');
+            });
+            this.textContent = 'Enregistrer'; // Change button text to "Enregistrer"
+        } else {
+            // Disable checkboxes and save changes
+            checkboxes.forEach(checkbox => {
+                checkbox.disabled = true;
+                checkbox.classList.add('disabled-checkbox');
+            });
+            this.textContent = 'Modifier'; // Change button text back to "Modifier"
+        }
+    });
+});
+
+    </script>
+</body>
+</html>
