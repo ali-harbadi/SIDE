@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard with Enhanced Sidebar and Navbar</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <style>
+      /* Basic styles for sidebar and navbar */
+      body {
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        background-color: #f4f6f9; /* Light grey background */
+        color: #333; /* Dark grey text */
+      }
+
+      /* Sidebar Styles */
+      .sidebar {
+        width: 250px;
+        background-color: white; /* White background for sidebar */
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        padding-top: 30px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease, width 0.3s ease;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .sidebar .logo {
+        font-size: 24px;
+        color: #333;
+        text-align: center;
+        padding: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .menu-items {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+      }
+
+      .menu-items .item {
+        padding: 15px 20px;
+        color: #333; /* Dark grey text for items */
+        cursor: pointer;
+        border-bottom: 1px solid #e0e0e0; /* Light grey border */
+        transition: background-color 0.3s ease, padding-left 0.3s ease;
+        font-size: 16px;
+      }
+
+      .menu-items .item:hover {
+        background-color: #f1f1f1; /* Light grey background on hover */
+        color: #333;
+        padding-left: 30px; /* Indentation on hover */
+      }
+
+      .menu-items .item.active {
+        background-color: #f1f1f1; /* Light grey background for active item */
+        color: #333;
+        padding-left: 30px; /* Indentation for active item */
+      }
+
+      .menu-items .submenu {
+        list-style: none;
+        padding-left: 0px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+
+      .menu-items .submenu .item {
+        padding: 10px 20px;
+        color: #333;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .menu-items .submenu .item:hover {
+        background-color: #f1f1f1;
+        color: #333;
+      }
+
+      .submenu-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .submenu-item i {
+        font-size: 16px;
+        transition: transform 0.3s ease;
+      }
+
+      .submenu-item.active i {
+        transform: rotate(180deg);
+      }
+
+      /* Navbar Styles */
+      .navbar {
+        background-color: white; /* White background for navbar */
+        color: #333;
+        padding: 15px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000; /* Make sure navbar is on top */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #e0e0e0; /* Light grey border */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+      }
+
+      .navbar .fa-bars {
+        font-size: 30px;
+        cursor: pointer;
+        color: #333;
+      }
+
+      .navbar .brand-name {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      .navbar .search-bar {
+        flex: 1;
+        margin: 0 20px;
+        display: flex;
+        justify-content: center;
+      }
+
+      /* Updated styles for the search bar input */
+      .navbar .search-bar input {
+        width: 300px; /* Fixed width */
+        padding: 8px 12px;
+        font-size: 14px;
+        font-weight: bold; /* Make the text bold */
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        transition: border-color 0.3s ease;
+      }
+
+      .navbar .search-bar input:focus {
+        border-color: #4a90e2; /* Focus border color */
+        outline: none;
+      }
+
+      /* Main content styles */
+      .main {
+        margin-left: 250px;
+        padding: 20px;
+        margin-top: 70px;
+        background-color: white;
+        min-height: 100vh;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for content */
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .sidebar {
+          width: 200px;
+        }
+
+        .main {
+          margin-left: 0;
+          padding: 15px;
+        }
+
+        .navbar .fa-bars {
+          display: block;
+        }
+
+        .sidebar.active + .navbar .fa-bars {
+          display: none;
+        }
+
+        /* Adjust search bar width for smaller screens */
+        .navbar .search-bar input {
+          max-width: 250px;
+        }
+      }
+
+      /* Remove text decoration (like underlines) for links */
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+      <a href="#" class="logo">DELIVERY +</a>
+      <div class="menu-content">
+        <ul class="menu-items">
+          <li class="item"><a href="index.html">MENU</a></li>
+          <li class="item">
+            <div class="submenu-item">
+              <span>Action</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <ul class="submenu">
+              <li class="item"><a href="confirmation.html">Confirmation</a></li>
+              <li class="item"><a href="listelivreuraffectation.html">Affectation</a></li>
+              <li class="item"><a href="detacher.html">Détacher</a></li>
+              <li class="item"><a href="#">Retour client</a></li>
+            </ul>
+          </li>
+          <li class="item">
+            <div class="submenu-item">
+              <span>FINANCES</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <ul class="submenu">
+              <li class="item"><a href="history.html">Ma tresorier</a></li>
+              <li class="item"><a href="create_tracking.html">Transfert d'argent</a></li>
+              <li class="item"><a href="charge.html">Charge & Operation</a></li>
+              <li class="item"><a href="paiement.html">Paiement</a></li>
+              <li class="item"><a href="listelivreurencaissement.html">Encaissement Livreur</a></li>
+              <li class="item"><a href="#">Liste -Encaissement</a></li>
+              <li class="item"><a href="listedespaiements.html">Liste -Paiement</a></li>
+            </ul>
+          </li>
+          <li class="item"><a href="#">Your second link</a></li>
+          <li class="item"><a href="#">Your third link</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Navbar with hamburger button to toggle sidebar -->
+    <nav class="navbar">
+      <i class="fa-solid fa-bars" id="sidebar-toggle"></i>
+      <span class="brand-name"></span>
+      <div class="search-bar">
+        <input type="text" placeholder="Search..." id="search-bar" />
+      </div>
+    </nav>
+
+    <!-- Main content area -->
+    <main class="main">
+
+    </main>
+
+    <script>
+      // Toggle sidebar visibility (for mobile view)
+      document
+        .getElementById("sidebar-toggle")
+        .addEventListener("click", function () {
+          const sidebar = document.getElementById("sidebar");
+          sidebar.classList.toggle("active"); // Add or remove the "active" class to show or hide the sidebar
+        });
+
+      // Toggle dropdown menus
+      const submenuItems = document.querySelectorAll(".submenu-item");
+
+      submenuItems.forEach((item) => {
+        item.addEventListener("click", function () {
+          const submenu = this.nextElementSibling;
+          submenu.classList.toggle("active");
+          const isActive = submenu.classList.contains("active");
+          submenu.style.maxHeight = isActive ? submenu.scrollHeight + "px" : "0";
+        });
+      });
+
+      // Highlight the active menu item
+      const menuItems = document.querySelectorAll(".menu-items .item");
+
+      menuItems.forEach((item) => {
+        item.addEventListener("click", function () {
+          menuItems.forEach((el) => el.classList.remove("active"));
+          this.classList.add("active");
+        });
+      });
+    </script>
+</body>
+</html>
+
+      document
+        .getElementById("sidebar-toggle")
+        .addEventListener("click", function () {
+          document.getElementById("sidebar").classList.toggle("active");
+        });
+    </script>
+</body>
+</html>
+  
