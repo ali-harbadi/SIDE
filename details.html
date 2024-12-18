@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Détails de la Boutique</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f7fb;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    .back-btn {
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 14px;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .back-btn:hover {
+      background-color: #45a049;
+    }
+
+    .details-box {
+      background-color: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .details-box p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .valid-btn {
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    .valid-btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a style="font-weight: bold; font-size: 16px;" href="paiement.html" class="back-btn"><</a>
+
+    <div class="details-box">
+      <p><strong>ID de Paiement:</strong> <span id="boutiqueId"></span></p>
+      <p><strong>Nom de la Boutique:</strong> <span id="boutiqueName"></span></p>
+      <p><strong>Montant:</strong> <span id="montant"></span></p>
+    </div>
+
+    <!-- Validation Button -->
+    <button class="valid-btn" id="validateBtn">Valider</button>
+  </div>
+
+  <script>
+    // Get the query parameters from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const boutiqueId = urlParams.get('id');
+    const boutiqueName = urlParams.get('name');
+    const montant = urlParams.get('montant');
+
+    // Populate the details page with the data from the URL
+    document.getElementById('boutiqueId').textContent = boutiqueId;
+    document.getElementById('boutiqueName').textContent = boutiqueName;
+    document.getElementById('montant').textContent = montant;
+
+    // When the "Valider" button is clicked
+    document.getElementById('validateBtn').addEventListener('click', function() {
+      // Create the payment object with updated status
+      const paymentDetails = {
+        id: boutiqueId,
+        name: boutiqueName,
+        montant: montant,
+        status: 'Validée'  // Updated status
+      };
+
+      // Store the updated payment details in localStorage
+      localStorage.setItem(boutiqueId, JSON.stringify(paymentDetails));
+
+      // Redirect back to the Liste des Paiements page
+      window.location.href = 'listefournisseur.html';
+    });
+  </script>
+
+</body>
+</html>
